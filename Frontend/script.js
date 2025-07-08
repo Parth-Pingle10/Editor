@@ -287,7 +287,7 @@ console.log("Sending to Piston:", back);
 
 
     try {
-        const res = await fetch("http://localhost:3000/run", {
+        const res = await fetch("https://pranjal-enz6.onrender.com", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(back),

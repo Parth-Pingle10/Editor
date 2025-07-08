@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>File Saver</title>
+</head>
+<body>
+  <input id="filename" placeholder="example.py" /><br><br>
+  <textarea id="filecontent" rows="10" cols="40">print("Hello world")</textarea><br><br>
+  <button onclick="saveFile()">Save File</button>
+
+  <script>
+    function saveFile() {
+      const filename = document.getElementById("filename").value.trim();
+      const content = document.getElementById("filecontent").value;
+
+      if (!filename || !filename.includes(".")) {
+        alert("Please enter a filename with extension");
+        return;
+      }
+
+      const blob = new Blob([content], { type: "text/plain" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      link.click();
+      URL.revokeObjectURL(link.href);
+    }
+  </script>
+</body>
+</html>

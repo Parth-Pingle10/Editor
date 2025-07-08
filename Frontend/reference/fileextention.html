@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Language Detector</title>
+  <style>
+    #language {
+      font-size: 20px;
+      font-weight: bold;
+      color: #00c3ff;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <input type="text" id="filename" placeholder="Enter filename with extension"><br><br>
+  <button onclick="detectLanguage()">Detect Language</button>
+
+  <div id="language">Language: Unknown</div>
+
+  <script>
+    function detectLanguage() {
+      const filename = document.getElementById("filename").value.trim();
+      const languageDiv = document.getElementById("language");
+
+      // Get extension
+      const ext = filename.split('.').pop().toLowerCase();
+
+      // Map extension to language
+      const languageMap = {
+        "html": "HTML",
+        "css": "CSS",
+        "js": "JavaScript",
+        "py": "Python",
+        "cpp": "C++",
+        "c": "C",
+        "java": "Java",
+        "ts": "TypeScript",
+        "json": "JSON",
+        "php": "PHP",
+        "rb": "Ruby",
+        "go": "Go",
+        "rs": "Rust",
+        "sh": "Shell Script"
+      };
+
+      const detected = languageMap[ext] || "Unknown";
+
+      languageDiv.textContent = `Language: ${detected}`;
+    }
+  </script>
+
+</body>
+</html>

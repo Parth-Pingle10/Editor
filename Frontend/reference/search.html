@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Custom Dropdown</title>
+  <style>
+    body {
+      background-color: #1A1A1A;
+      color: #F5F5F5;
+      font-family: sans-serif;
+      padding: 40px;
+    }
+
+    .dropdown-container {
+      position: relative;
+      width: 260px;
+    }
+
+    .dropdown-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #F5F5F5;
+      border-radius: 5px;
+      background-color: #1A1A1A;
+      color: #F5F5F5;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .dropdown-list {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      background-color: #2a2a2a;
+      border: 1px solid #F5F5F5;
+      border-radius: 5px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      transition: max-height 0.5s ease, opacity 0.3s ease;
+      opacity: 0;
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    .dropdown-list.show {
+      max-height: 300px;
+      opacity: 1;
+    }
+
+    .dropdown-list li {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .dropdown-list li:hover {
+      background-color: #444;
+      cursor: pointer;
+    }
+
+    .arrow {
+      position: absolute;
+      right: 10px;
+      top: 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <label for="dropdown">Choose a language:</label><br><br>
+  <div class="dropdown-container">
+    <input type="text" id="dropdown" class="dropdown-input" placeholder="Start typing..." oninput="filterDropdown()" onclick="toggleDropdown()" autocomplete="off">
+    <span class="arrow">▼</span>
+    <ul class="dropdown-list" id="dropdown-list">
+      <li onclick="selectOption(this)">JavaScript</li>
+      <li onclick="selectOption(this)">Python</li>
+      <li onclick="selectOption(this)">Java</li>
+      <li onclick="selectOption(this)">C++</li>
+      <li onclick="selectOption(this)">Go</li>
+      <li onclick="selectOption(this)">PHP</li>
+      <li onclick="selectOption(this)">Rust</li>
+      <li onclick="selectOption(this)">Ruby</li>
+      <li onclick="selectOption(this)">Kotlin</li>
+      <li onclick="selectOption(this)">TypeScript</li>
+    </ul>
+  </div>
+
+  <script>
+    const dropdown = document.getElementById("dropdown");
+    const dropdownList = document.getElementById("dropdown-list");
+
+    function toggleDropdown() {
+      dropdownList.classList.toggle("show");
+    }
+
+    function selectOption(element) {
+      dropdown.value = element.textContent;
+      dropdownList.classList.remove("show");
+    }
+
+    function filterDropdown() {
+      const filter = dropdown.value.toUpperCase();
+      const items = dropdownList.getElementsByTagName("li");
+
+      let hasVisible = false;
+
+      for (let i = 0; i < items.length; i++) {
+        const txtValue = items[i].textContent || items[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          items[i].style.display = "";
+          hasVisible = true;
+        } else {
+          items[i].style.display = "none";
+        }
+      }
+
+      if (filter && hasVisible) {
+        dropdownList.classList.add("show");
+      } else {
+        dropdownList.classList.remove("show");
+      }
+    }
+
+    // Close dropdown if clicking outside
+    window.addEventListener("click", function(e) {
+      if (!document.querySelector(".dropdown-container").contains(e.target)) {
+        dropdownList.classList.remove("show");
+      }
+    });
+  </script>
+
+</body>
+</html>
